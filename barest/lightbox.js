@@ -2,17 +2,24 @@ $(document).ready(function($) {
     $('.trigger').click(function(event) {
         event.preventDefault();
         var href = $(this).attr("href");
+        var description = $('.lightbox').attr("alt");
         if ($('#lightbox').length > 0) {
-          $('#content').html('<img src="' + href + '" />');
+          $('#lightbox').html('<img src="' + href + '" />' +
+                              '<div id="text">' + 
+                                  '<p>' + description + '</p>' +
+                                  '<h2>X</h2>' +
+                              '</div>');
           $('#lightbox, #background').show();
         }
         else {
             var lightbox =
                     '<div id="background"></div>' +
                     '<div id="lightbox">' +
-                    '<div id="content">' + //
-                    '<img src="' + href + '" />' +
-                    '</div>' +
+                        '<img src="' + href + '" />' +
+                        '<div id="text">' +
+                            '<p>' + description + '</p>' +
+                            '<h2>X</h2>' + 
+                        '</div>' +
                     '</div>';
             $('body').append(lightbox);
         }
