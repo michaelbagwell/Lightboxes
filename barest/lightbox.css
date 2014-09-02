@@ -1,22 +1,64 @@
 #lightbox, #background {
-    position:fixed; 
-    top:0; 
-    left:0; 
-    width:100%; 
-    height:100%; 
-    text-align:center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
-#background{
-    background-color: rgba(255,255,255,0.5);
-    background-color: #fff;
-    opacity:.5;
+#background {
+  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #fff;
+  opacity: .6;
 }
 
 #lightbox img {
-    top:100px;
-    position:relative;
-    box-shadow:0 0 50px black;
-    -webkit-box-shadow:0 0 50px black;
-    -moz-box-shadow:0 0 50px black;
+  top: 100px;
+  position: relative;
+  box-shadow: 0 0 50px black;
+  -webkit-box-shadow: 0 0 50px black;
+  -moz-box-shadow: 0 0 50px black;
+}
+
+#lightbox #text {
+  display: table;
+  margin: 0px auto;
+  padding: 20px 40px 40px 40px;
+}
+
+#lightbox p {
+  position: relative;
+  top: 100px;
+  background-color: black;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+
+#lightbox h2 {
+  position: relative;
+  top: 110px;
+  border-radius: 50%;
+  behavior: url(PIE.htc); /* IE8 */
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  border: 2px solid black;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+#text:hover h2 {
+  width: 60px;
+  height: 60px;
+  padding: 6px;
+  border-color: gray;
+  font-size: 40px;
+  color: gray;
 }
