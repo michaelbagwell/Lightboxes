@@ -6,8 +6,7 @@ $(document).ready(function($) {
         if ($('#lightbox').length > 0) {
           $('#lightbox').html('<img src="' + href + '" />' +
                               '<div id="text">' + 
-                                  '<p>' + description + '</p>' +
-                                  '<h2>X</h2>' +
+                                  '<p>' + description + '</p>'
                               '</div>');
           $('#lightbox, #background').show();
         }
@@ -17,8 +16,7 @@ $(document).ready(function($) {
                     '<div id="lightbox">' +
                         '<img src="' + href + '" />' +
                         '<div id="text">' +
-                            '<p>' + description + '</p>' +
-                            '<h2>X</h2>' + 
+                            '<p>' + description + '</p>'
                         '</div>' +
                     '</div>';
             $('body').append(lightbox);
