@@ -1,55 +1,50 @@
 $(document).ready(function($) {
+    
+    //get array of image hrefs and their alt tags, used as new image source and descriptions
     var images_href = $(document).find(".trigger").map(function() { return $(this).attr("href"); }).get();
+    var descriptionAlt = $(document).find(".lightbox").map(function() { return $(this).prop("alt"); }).get();
+    
+    //get position of last image
+    var maxLength = ($(document).find(".trigger").get().length)-1;
+    
     $('.trigger').click(function(event) {
+        //prevent default linking behaviour, establish index and default values
         event.preventDefault();
-        //var href = $(this).attr("href");
         var i = $('.trigger').index(this);
         var href = images_href[i];
-        var description = $('.lightbox').attr("alt");
-        function showImage(){
-            $('#lightbox').html('<img src="' + href + '" />' +
-              '<div id="text">' + 
-                  '<p>' + description + '</p>' +
-                  '<div id="lb-nav">' +
-                      '<span class="navPrev">&#60;&#60;&nbsp; Prev</span>' +
-                      '<h2>X</h2>' + 
-                      '<span class="navNext">Next &nbsp;&#62;&#62;</span>' +
-                  '</div>' +
-              '</div>');
+        var descriptionP = descriptionAlt[i];
+        
+        function nextImage(){
+            (i === maxLength) ? (i=0) : (++i); //loop to first image or move forwards through image index
+            href = images_href[i];
+            descriptionP = descriptionAlt[i];
+            $('.lb-img').attr('src', href);
+            $('#text p').html(descriptionP);
+        }
+        
+        function prevImage(){
+            (i === 0) ? (i = maxLength) : (--i); //loop to last image or move backwards through image index
+            href = images_href[i];
+            descriptionP = descriptionAlt[i];
+            $('.lb-img').attr('src', href);
+            $('#text p').html(descriptionP);
+        }
+        
+        //update and show lightbox if already created and hidden
+        if ($('#lightbox').length > 0) {
+            $('.lb-img').attr('src', href);
+            $('#text p').html(descriptionP);
             $('#lightbox, #background').show();
         }
-        function nextImage(){
-            if(i === ($(document).find(".trigger").get().length)-1){
-                i=0;
-                href = images_href[i];
-            }
-            else{
-                href = images_href[++i];
-            }
-            $('#lightbox, #background').hide();
-            showImage();
-        }
-        function prevImage(){
-            if(i === 0){
-                i = ($(document).find(".trigger").get().length)-1;
-                href = images_href[i];
-            }
-            else{
-                href = images_href[--i];
-            }
-            $('#lightbox, #background').hide();
-            showImage();
-        }
-        if ($('#lightbox').length > 0) {
-          showImage();
-        }
-        else {
+        
+        //initial creation and appending of lightbox to html
+        else {          
             var lightbox =
                     '<div id="background"></div>' +
                     '<div id="lightbox">' +
-                        '<img src="' + href + '" />' +
+                        '<img class="lb-img" src="' + href + '" />' +
                         '<div id="text">' +
-                            '<p>' + description + '</p>' +
+                            '<p>' + descriptionP + '</p>' +
                             '<div id="lb-nav">' +
                                 '<span class="navPrev">&#60;&#60;&nbsp; Prev</span>' +
                                 '<h2>X</h2>' + 
@@ -59,14 +54,21 @@ $(document).ready(function($) {
                     '</div>';
             $('body').append(lightbox);
         }
-        $('#lightbox').on('click', function() {
-            $('#lightbox, #background').hide();
-        });
+        
+        //handle click events on nav
         $(document).on('click', '.navNext', function(){
             nextImage();
-        });
-        $(document).on('click', '.navPrev', function(){
+        }).on('click', '.navPrev', function(){
             prevImage();
+        }).on('click', 'h2', function(){
+           $('#lightbox, #background').hide();
+        });
+        
+        //handle click events on lightbox, excluding children
+        $('#lightbox').on('click', function(e) {
+            if(e.target === this){
+                $('#lightbox, #background').hide();
+            }
         });
     });
 });
