@@ -14,10 +14,10 @@ $(document).ready(function($) {
         var href = images_href[i];
         var description = descriptionAlt[i];
         
-        //reset values based on current index
+        //reset values based on current index and set them as href and p respectively
         function initialize(i){
-            var href = images_href[i];
-            var description = descriptionAlt[i];
+            href = images_href[i];
+            description = descriptionAlt[i];
             $('.lb-img').attr('src', href);
             $('#text p').html(description);
         }
@@ -38,7 +38,7 @@ $(document).ready(function($) {
             $('#lightbox, #background').show();
         }
         
-        //or, initially create and append lightbox to html
+        //initial creation and appending of lightbox to html
         else {          
             var lightbox =
                     '<div id="background"></div>' +
